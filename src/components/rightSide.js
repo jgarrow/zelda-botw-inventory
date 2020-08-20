@@ -3,6 +3,8 @@ import styled from "styled-components"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
 
+import ArmorBonus from "./armorBonus"
+
 const Container = styled.div`
     width: 50%;
     position: relative;
@@ -62,6 +64,7 @@ const RightSide = ({ itemInFocus, prevItemInFocus, category }) => {
         <Container>
             {/* stat boost stuff */}
             <StaminaRings />
+            <ArmorBonus bonus="climbing" count={2}/>
 
             {/* Link pic */}
             <ImgContainer>
