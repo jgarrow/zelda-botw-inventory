@@ -8,14 +8,16 @@ import TextInfo from "./textInfo"
 const Container = styled.div`
     width: 50%;
     position: relative;
+    display: flex;
+    justify-content: center;
 `
 
 const ImgContainer = styled.div`
-    max-width: 60%;
+    width: 60%;
+    max-width: 250px;
     height: 100%;
     max-height: 550px;
-    margin-right: 0;
-    margin-left: auto;
+    margin: 0;
 `
 
 const StyledImg = styled(Img)`

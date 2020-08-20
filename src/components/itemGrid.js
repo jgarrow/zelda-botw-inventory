@@ -18,7 +18,7 @@ const CategoryIconsWrapper = styled.div`
     width: 180px;
     margin: 0 auto 1rem;
     display: grid;
-    grid-template-columns: repeat(3, 2rem);
+    grid-template-columns: repeat(3, minmax(2rem, 1fr));
     grid-gap: 1.5rem;
     border-bottom: 1px solid rgba(226, 232, 240, 0.5);
     padding: 0 0.5rem 0.5rem;

@@ -9,6 +9,7 @@ const GridItem = styled.li`
     padding: 2.5px;
     position: relative;
     height: 80px;
+    cursor: pointer;
 `
 
 const BorderSquare = styled.div`

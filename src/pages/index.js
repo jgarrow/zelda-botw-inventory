@@ -14,14 +14,13 @@ const Container = styled.div`
 `
 
 const BorderContainer = styled.div`
-  border-top: 1px solid #2f3124;
-  border-bottom: 1px solid #2f3124;
-  width: 100%;
-  height: 100%;
+  position: relative;
+  width: 80%;
+  min-width: 1235px;
+  height: auto;
   margin: 2rem auto 0;
   display: flex;
   flex-direction: row;
-  padding: 1.5rem 2rem;
 
   @media (max-width: 500px) {
     flex-direction: column;

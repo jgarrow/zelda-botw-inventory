@@ -13,7 +13,7 @@ const TextInfoContainer = styled.div`
     width: 50%;
     padding: 2.5px;
     position: absolute;
-    bottom: 15%;
+    bottom: calc(100% - 530px);
     right: 0;
     z-index: 2;
 `
