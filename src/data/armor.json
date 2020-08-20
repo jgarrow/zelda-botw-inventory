@@ -1,0 +1,112 @@
+[
+    {
+        "name": "Zora Helm",
+        "category": "helm",
+        "icon": "items/armors/BotW_Zora_Helm_Icon.png",
+        "value": "3",
+        "bonus": "swimming",
+        "description":
+          "Zora headgear made from dragon scales. Increases swimming speed and allows you to use Spin Attack."
+      },
+      {
+        "name": "Zora Armor",
+        "category": "armor",
+        "icon": "items/armors/BotW_Zora_Armor_Icon.png",
+        "value": "3",
+        "bonus": "swimming",
+        "description":
+          "Custom armor painstakingly crafted by each generation's Zora princess for her future husband. Wearing it will give you the ability to swim up waterfalls."
+      },
+      {
+        "name": "Zora Greaves",
+        "category": "greave",
+        "icon": "items/armors/BotW_Zora_Greaves_Icon.png",
+        "value": "3",
+        "bonus": "swimming",
+        "description":
+          "These greave have been passed down among the Zora for generations. It's been said they're crafted using dragon scales. Equip them to swim faster."
+      },
+      {
+        "name": "Climber's Bandanna",
+        "category": "helm",
+        "icon": "items/armors/BotW_Climber's_Bandanna_Icon.png",
+        "value": "3",
+        "bonus": "climbing",
+        "description":
+          "It may look like a regular bandanna, but it's actually infused with ancient technology that enhances core strength to improve your climbing ability."
+      },
+      {
+        "name": "Climbing Gear",
+        "category": "armor",
+        "icon": "items/armors/BotW_Climbing_Gear_Icon.png",
+        "value": "3",
+        "bonus": "climbing",
+        "description":
+          "The ancient technology in this gear will make you a better climber. The special no-slip gloves help you use your energy more efficiently to facilitate nimble climbing."
+      },
+      {
+        "name": "Climbing Boots",
+        "category": "greave",
+        "icon": "items/armors/BotW_Climbing_Boots_Icon.png",
+        "value": "3",
+        "bonus": "climbing",
+        "description":
+          "These rock-climbing boots have special no-slip toes that help you cling to walls. This ancient technology facilitates more nimble climbing."
+      },
+      {
+        "name": "Flamebreaker Helm",
+        "category": "helm",
+        "icon": "items/armors/BotW_Flamebreaker_Helm_Icon.png",
+        "value": "3",
+        "bonus": "fire",
+        "description":
+          "Stone headgear made by Goron craftsmen to protect tourists visiting Goron City. As if its flame resistance isn't enough of a selling point, it also covers your entire head!"
+      },
+      {
+        "name": "Flamebreaker Armor",
+        "category": "armor",
+        "icon": "items/armors/BotW_Flamebreaker_Armor_Icon.png",
+        "value": "3",
+        "bonus": "fire",
+        "description":
+          "Armor crafted by Gorons for Hylians curious enough to visit Goron City. It's made from fire-resistant rocks to protect the wearer."
+      },
+      {
+        "name": "Flamebreaker Boots",
+        "category": "greave",
+        "icon": "items/armors/BotW_Flamebreaker_Boots_Icon.png",
+        "value": "3",
+        "bonus": "fire",
+        "description":
+          "Goron artisans used flame-resistant rocks to craft these fireproof boots for curious Hylians visiting Goron City."
+      },
+      {
+        "name": "Cap of the Hero",
+        "category": "helm",
+        "icon": "items/armors/BotW_Cap_of_the_Hero_Icon.png",
+        "value": "3",
+        "bonus": "normal",
+        "description":
+          "According to legend, this cap was once treasured by an ancient hero. It's quite the simple cap, yet there's something about it that's just so appealing..."
+      },
+      {
+        "name": "Champion's Tunic",
+        "category": "armor",
+        "isNew": true,
+        "icon": "items/armors/BotW_Champion's_Tunic_Icon.png",
+        "value": "5",
+        "bonus": "normal",
+        "description":
+          "In ancient Hyrule, this garment could only be worn by one who had earned the respect of the royal family. Equipping it will reveal an enemy's life gauge."
+      },
+      {
+        "name": "Hylian Trousers",
+        "category": "greave",
+        "isNew": true,
+        "icon": "items/armors/BotW_Hylian_Trousers_Icon.png",
+        "value": "3",
+        "bonus": "normal",
+        "description":
+          "Traditional dress trousers of Hyrule. The plush fabric makes these trousers quite comfortable, and their high durability makes them ideal for travelers."
+      }
+]

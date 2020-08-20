@@ -13,20 +13,66 @@ import Img from "gatsby-image"
  * - `useStaticQuery`: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-const Image = () => {
-  const data = useStaticQuery(graphql`
+const Image = ({ filename, altTag }) => {
+  const { images } = useStaticQuery(graphql`
     query {
-      placeholderImage: file(relativePath: { eq: "gatsby-astronaut.png" }) {
-        childImageSharp {
-          fluid(maxWidth: 300) {
-            ...GatsbyImageSharpFluid
+      images: allFile(filter:{ extension: { regex: "/jpeg|jpg|png|gif/"}}) {
+        nodes {
+          relativePath
+          extension
+          childImageSharp {
+            fluid(maxWidth: 100) {
+              ...GatsbyImageSharpFluid
+            }
           }
         }
       }
     }
   `)
 
-  return <Img fluid={data.placeholderImage.childImageSharp.fluid} />
+
+const image = images.nodes.find(n => {
+  return filename.includes(n.relativePath)
+})
+
+if (!image) {
+  return null
 }
+
+  return image.extension === "svg" ? (<img alt={altTag} publicUrl={image.childImageSharp.fluid} />) : (
+    <Img alt={altTag} fluid={image.childImageSharp.fluid} />
+  )
+}
+
+
+// const Image = ({ filename, altTag }) => (
+//   <StaticQuery
+//     query={graphql`
+//       query {
+//         images: allImageSharp {
+//           edges {
+//             node {
+//                 fluid(maxWidth: 600) {
+//                   ...GatsbyImageSharpFluid,
+//                   originalName
+//                 }
+//             }
+//           }
+//         }
+//       }
+//     `}
+//     render={data => {
+//       const image = data.images.edges.find(n => {
+//         return filename.includes(n.node.originalName);
+//       });
+//       if (!image) {
+//         return null;
+//       }
+
+//       //const imageSizes = image.node.childImageSharp.sizes; sizes={imageSizes}
+//       return <Img alt={altTag} fluid={image.node.childImageSharp.fluid} />;
+//     }}
+//   />
+// );
 
 export default Image

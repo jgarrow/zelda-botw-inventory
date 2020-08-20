@@ -1,0 +1,35 @@
+[
+    {
+        "name": "Wooden Shield",
+        "category": "shield",
+        "icon": "items/shields/BotW_Wooden_Shield_Icon.png",
+        "value": "2",
+        "description":
+          "This lightweight, simple shield is ideal for less-experienced fighters. It can withstand light attacks, but blocking stronger blows is not recommended."
+      },
+      {
+        "name": "BotW Traveler's Shield",
+        "category": "shield",
+        "icon": "items/shields/BotW_Traveler's_Shield_Icon.png",
+        "value": "4",
+        "description":
+          "A sturdy shield loved by many an adventurer. It is made of animal hide and sturdy wood and is best suited to defending against weak monsters or animals."
+      },
+      {
+        "name": "BotW Gerudo Shield",
+        "category": "shield",
+        "isNew": true,
+        "icon": "items/shields/BotW_Gerudo_Shield_Icon.png",
+        "value": "20",
+        "description":
+          "The design of this metal shield has changed over time to match the Gerudo's sword-and-shield fighting style. It's favored by soldiers and travelers alike."
+      },
+      {
+        "name": "BotW Ancient Shield",
+        "category": "shield",
+        "icon": "items/shields/BotW_Ancient_Shield_Icon.png",
+        "value": "70",
+        "description":
+          "This shield was made using ancient Sheikah technology. Its surface glows blue when raised in defense. Enhanced functionality allows it to deflect Guardian beams."
+      }
+]
