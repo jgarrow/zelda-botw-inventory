@@ -45,9 +45,17 @@ const ItemValue = styled.p`
     line-height: 1;
 `
 
-const Item = ({ item, handleItemClick }) => {
+const Item = ({ item, category, handleItemClick, handleArmorEquip }) => {
+    const handleClick = () => {
+        if (category === "armor" || category === "helm" || category === "greaves") {
+            handleArmorEquip(item)
+        } else {
+            handleItemClick(item)
+        }
+    }
+
     return (
-        <GridItem onClick={() => handleItemClick(item)}>
+        <GridItem onClick={() => handleClick()}>
             <BorderSquare>
                 <ImgContainer>
                     <StyledImg filename={item.icon} altTag={item.name}/>

@@ -34,10 +34,60 @@ const IndexPage = ({ data }) => {
 
   const [prevItemInFocus, setPrevItemInFocus] = useState(null);
   const [itemInFocus, setItemInFocus] = useState(weapons[0]);
+  const [equippedArmor, setEquippedArmor] = useState({
+    helm: null,
+    armor: null,
+    greave: null
+  });
+  const [armorBonus, setArmorBonus] = useState({
+    climbing: 0,
+    swimming: 0,
+    fire: 0,
+    normal: 0
+  })
 
   const handleItemClick = (item) => {
     setPrevItemInFocus(itemInFocus);
     setItemInFocus(item);
+  }
+
+  // TODO: handle value in TextInfo for armor differently than weapons and shields
+  const handleArmorEquip = (clothing) => {
+    const equipCopy = {...equippedArmor};
+
+    equipCopy[clothing.category] = clothing;
+
+    console.log('equipped armor: ', equipCopy)
+
+    const armorBuffs = {
+      climbing: 0,
+      swimming: 0,
+      fire: 0
+    };
+
+    const equipKeys = Object.keys(equipCopy);
+    
+    // for each armor bonus type (i.e. swimming, climbing, fire)
+    equipKeys.forEach(armorKey => {
+      // if there is something equipped for that piece of clothing
+      if (equipCopy[armorKey]) {
+        // get bonus from each clothing in equipCopy and increment it
+        const armorCategory = equipCopy[armorKey].bonus;
+        ++armorBuffs[armorCategory];
+      };
+    })
+
+    console.log('armorBuffs: ', armorBuffs)
+    setArmorBonus(armorBuffs);
+    setEquippedArmor(equipCopy);
+  }
+
+  const handleArmorRemove = (clothing) => {
+    const equipCopy = {...equippedArmor};
+
+    equipCopy[clothing.category] = null;
+
+    setEquippedArmor(equipCopy)
   }
 
   return (
@@ -45,10 +95,28 @@ const IndexPage = ({ data }) => {
     <SEO title="Home" />
     <Container>
       <BorderContainer>
-        <ItemGrid weapons={weapons} shields={shields} armor={armor} handleItemClick={handleItemClick}/>
-        <RightSide itemInFocus={itemInFocus} prevItemInFocu={prevItemInFocus} category={itemInFocus.category} />
+        <ItemGrid 
+          weapons={weapons} 
+          shields={shields} 
+          armor={armor} 
+          handleItemClick={handleItemClick}
+          handleArmorEquip={handleArmorEquip}
+          handleArmorRemove={handleArmorRemove}
+        />
 
-        {itemInFocus && <TextInfo itemInFocus={itemInFocus} prevItemInFocus={prevItemInFocus} category={itemInFocus.category}/>}
+        <RightSide 
+          itemInFocus={itemInFocus} 
+          prevItemInFocu={prevItemInFocus} 
+          category={itemInFocus.category} 
+        />
+
+        {itemInFocus && 
+          <TextInfo 
+            itemInFocus={itemInFocus} 
+            prevItemInFocus={prevItemInFocus} 
+            category={itemInFocus.category}
+          />
+        }
       </BorderContainer>
     </Container>
 

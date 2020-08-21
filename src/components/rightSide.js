@@ -64,7 +64,7 @@ const RightSide = ({ itemInFocus, prevItemInFocus, category }) => {
         <Container>
             {/* stat boost stuff */}
             <StaminaRings />
-            <ArmorBonus bonus="climbing" count={2}/>
+            <ArmorBonus bonus="swimming" count={2}/>
 
             {/* Link pic */}
             <ImgContainer>

@@ -55,7 +55,7 @@ const Grid = styled.ul`
     }
 `
 
-const ItemGrid = ({ weapons, shields, armor, handleItemClick }) => {
+const ItemGrid = ({ weapons, shields, armor, handleItemClick, handleArmorEquip, handleArmorRemove }) => {
     const [selectedCategory, setSelectedCategory] = useState("weapon")
     const [categoryPosition, setCategoryPosition] = useState(`translateX(0)`);
     
@@ -104,6 +104,11 @@ const ItemGrid = ({ weapons, shields, armor, handleItemClick }) => {
 
             {/* will add framer motion slide functionality */}
             <Carousel>
+            <Grid>
+                    {fillGrid(armor, "armor").map((item, index) => (
+                        <Item key={`${item.name}-${index}`} item={item} category="armor" handleItemClick={handleItemClick} handleArmorEquip={handleArmorEquip}/>
+                    ))}
+                </Grid>
                 <Grid>
                     {fillGrid(weapons, "weapon").map((item, index) => (
                         <Item key={`${item.name}-${index}`} item={item} handleItemClick={handleItemClick}/>
@@ -114,11 +119,7 @@ const ItemGrid = ({ weapons, shields, armor, handleItemClick }) => {
                         <Item key={`${item.name}-${index}`} item={item} handleItemClick={handleItemClick}/>
                     ))}
                 </Grid>
-                <Grid>
-                    {fillGrid(armor, "armor").map((item, index) => (
-                        <Item key={`${item.name}-${index}`} item={item} handleItemClick={handleItemClick}/>
-                    ))}
-                </Grid>
+                
             </Carousel>
         </GridContainer>
     )
