@@ -6,13 +6,9 @@ import Climbing from "../assets/items/mountain.svg"
 import Fire from "../assets/items/fire.svg"
 
 // same width as StaminaRings
-// top = height of StaminaRings + 15px for some spacing
 const ArmorBonusContainer = styled.div`
     width: 40px;
     height: 35px;
-    position: absolute;
-    top: 65px;
-    left: 0;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;

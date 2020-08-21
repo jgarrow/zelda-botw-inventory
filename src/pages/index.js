@@ -108,6 +108,7 @@ const IndexPage = ({ data }) => {
           itemInFocus={itemInFocus} 
           prevItemInFocu={prevItemInFocus} 
           category={itemInFocus.category} 
+          armorBonus={armorBonus}
         />
 
         {itemInFocus && 

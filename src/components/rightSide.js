@@ -34,6 +34,20 @@ const StaminaRings = styled.div`
     }
 `
 
+// top = height of StaminaRings + 15px for some spacing
+// grid-gap = same as 15px spacing that separates this from StaminaRings
+const ArmorBonusesContainer = styled.div`
+    width: 40px;
+    height: 150px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 35px);
+    grid-gap: 15px;
+    position: absolute;
+    top: 65px;
+    left: 0;
+`
+
 const ImgContainer = styled.div`
     width: 60%;
     max-width: 250px;
@@ -47,7 +61,7 @@ const StyledImg = styled(Img)`
     max-height: 550px;
 `
 
-const RightSide = ({ itemInFocus, prevItemInFocus, category }) => {
+const RightSide = ({ itemInFocus, prevItemInFocus, category, armorBonus }) => {
     const data = useStaticQuery(graphql`
         query {
             file(relativePath: {eq: "bg.png"}) {
@@ -64,7 +78,13 @@ const RightSide = ({ itemInFocus, prevItemInFocus, category }) => {
         <Container>
             {/* stat boost stuff */}
             <StaminaRings />
-            <ArmorBonus bonus="swimming" count={2}/>
+            <ArmorBonusesContainer>
+                {armorBonus.swimming > 0 && <ArmorBonus bonus="swimming" count={armorBonus.swimming}/>}
+    
+                {armorBonus.climbing > 0 && <ArmorBonus bonus="climbing" count={armorBonus.climbing}/>}
+    
+                {armorBonus.fire > 0 && <ArmorBonus bonus="fire" count={armorBonus.fire}/>}
+            </ArmorBonusesContainer>
 
             {/* Link pic */}
             <ImgContainer>
