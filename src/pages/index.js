@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { graphql } from "gatsby"
 import styled from "styled-components"
 
@@ -28,17 +28,41 @@ const BorderContainer = styled.div`
 `
 
 const IndexPage = ({ data }) => {
-  const weapons = data.allWeaponsJson.edges.map(n => n.node);
-  const shields = data.allShieldsJson.edges.map(n => n.node);
-  const armor = data.allArmorJson.edges.map(n => n.node);
+  // thoughts
+  // just have 1 category of stuff render in itemGrid
+  // which array populates itemGrid determined by selectedCategory
+  // itemGrid -- wrap in a motion.div
 
-  const [prevItemInFocus, setPrevItemInFocus] = useState(null);
-  const [itemInFocus, setItemInFocus] = useState(weapons[0]);
+
+  //  create an object that has each equipment array
+  // pos = position used for the category selection icons above the itemGrid
+  const inventory = {
+    weapons: { pos: 0, items: data.allWeaponsJson.edges.map(n => n.node)},
+    shields: {pos: 1, items: data.allShieldsJson.edges.map(n => n.node)},
+    armor: {pos: 2, items: data.allArmorJson.edges.map(n => n.node)},
+  }
+  // const weapons = data.allWeaponsJson.edges.map(n => n.node);
+  // const shields = data.allShieldsJson.edges.map(n => n.node);
+  // const armor = data.allArmorJson.edges.map(n => n.node);
+
+  // get rid of this, instead look at equipped state before updating to equip new item
+  // const [prevItemInFocus, setPrevItemInFocus] = useState(null);
+
+  // Bring in selectedCategory (move from itemGrid) to change between "weapons", "shields", and "armor"
+  const [selectedCategory, setSelectedCategory] = useState("weapons")
+
+  // change to just be index of the item instead of whole object
+  const [itemInFocusIndex, setItemInFocusIndex] = useState(0);
+
+  const [equippedWeapon, setEquippedWeapon] = useState(null);
+  const [equippedShield, setEquippedShield] = useState(null);
+
   const [equippedArmor, setEquippedArmor] = useState({
     helm: null,
     armor: null,
     greave: null
   });
+
   const [armorBonus, setArmorBonus] = useState({
     climbing: 0,
     swimming: 0,
@@ -46,9 +70,13 @@ const IndexPage = ({ data }) => {
     normal: 0
   })
 
-  const handleItemClick = (item) => {
-    setPrevItemInFocus(itemInFocus);
-    setItemInFocus(item);
+  
+
+  const handleItemClick = (itemIndex) => {
+    // trigger modal popup for equip/unequip, drop (if weapon or shield), and cancel options
+
+    // setPrevItemInFocus(itemInFocus);
+    setItemInFocusIndex(itemIndex);
   }
 
   // TODO: handle value in TextInfo for armor differently than weapons and shields
@@ -96,28 +124,34 @@ const IndexPage = ({ data }) => {
     <Container>
       <BorderContainer>
         <ItemGrid 
-          weapons={weapons} 
-          shields={shields} 
-          armor={armor} 
+          // weapons={inventory.weapons} 
+          // shields={inventory.shields} 
+          // armor={inventory.armor} 
+          data={inventory[selectedCategory]}
+          selectedCategory={selectedCategory}
+          itemInFocusIndex={itemInFocusIndex}
+          setItemInFocusIndex={setItemInFocusIndex}
           handleItemClick={handleItemClick}
           handleArmorEquip={handleArmorEquip}
           handleArmorRemove={handleArmorRemove}
         />
 
         <RightSide 
-          itemInFocus={itemInFocus} 
-          prevItemInFocu={prevItemInFocus} 
-          category={itemInFocus.category} 
+          // Example of grabbing the object based on selectedCategory and itemInFocus
+          // itemInFocus={inventory[selectedCategory][itemInFocus]}
+          // itemInFocus={itemInFocus} 
+          // prevItemInFocu={prevItemInFocus} 
+          // category={itemInFocus.category} 
           armorBonus={armorBonus}
         />
 
-        {itemInFocus && 
+        {/* {itemInFocus && 
           <TextInfo 
             itemInFocus={itemInFocus} 
             prevItemInFocus={prevItemInFocus} 
             category={itemInFocus.category}
           />
-        }
+        } */}
       </BorderContainer>
     </Container>
 

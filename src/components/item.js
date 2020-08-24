@@ -10,6 +10,9 @@ const GridItem = styled.li`
     position: relative;
     height: 80px;
     cursor: pointer;
+    border: ${({ inFocus }) => inFocus ? `2px solid rgb(248,247,217)` : `none`};
+    box-shadow: ${({ inFocus }) => inFocus ? `rgba(255, 255, 190, 0.4) 0px 0px 6px 2px` : `none`};
+    
 `
 
 const BorderSquare = styled.div`
@@ -45,17 +48,17 @@ const ItemValue = styled.p`
     line-height: 1;
 `
 
-const Item = ({ item, category, handleItemClick, handleArmorEquip }) => {
+const Item = ({ item, itemIndex, category, itemInFocusIndex, handleItemClick, handleArmorEquip }) => {
     const handleClick = () => {
         if (category === "armor" || category === "helm" || category === "greaves") {
             handleArmorEquip(item)
         } else {
-            handleItemClick(item)
+            handleItemClick(itemIndex)
         }
     }
 
     return (
-        <GridItem onClick={() => handleClick()}>
+        <GridItem onClick={() => handleClick()} inFocus={itemInFocusIndex === itemIndex}>
             <BorderSquare>
                 <ImgContainer>
                     <StyledImg filename={item.icon} altTag={item.name}/>

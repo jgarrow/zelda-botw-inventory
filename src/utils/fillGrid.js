@@ -1,10 +1,10 @@
-export const fillGrid = (dataArray, categoryName, itemsPerPage = 20) => {
+export const fillGrid = (dataArray, itemsPerPage = 20) => {
     const emptyItem = {
         name: "",
         icon: "",
         value: "",
         description: "",
-        category: categoryName
+        // category: categoryName // can probably remove this
     };
 
     // fill any empty spots with the `emptyItem` object until array length matches `itemsPerPage`
