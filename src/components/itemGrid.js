@@ -101,14 +101,25 @@ const ItemGrid = ({
 
         let moveDirection = gridDirection;
         let newCategoryIndex = pos;
+        let newItemIndex = itemInFocusIndex;
 
         if (direction === "right") {
             moveDirection = 100;
             newCategoryIndex = (pos + 1) < (inventoryCategories.length) ? (pos + 1) : (inventoryCategories.length - 1);
+
+            if ((pos + 1) < (inventoryCategories.length)) {
+                newItemIndex = 0;
+            }
+
         } else if (direction === "left") {
             moveDirection = -100;
             newCategoryIndex = (pos - 1) >= 0 ? (pos - 1) : 0;
+
+            if ((pos - 1) >= 0) {
+                newItemIndex = 0;
+            }
         }
+
 
         console.log('moveDirection: ', moveDirection)
         console.log('newCategoryIndex: ', newCategoryIndex)
@@ -117,7 +128,7 @@ const ItemGrid = ({
         setGridDirection(moveDirection);
 
         // need to update itemInFocusIndex to 0
-        setItemInFocusIndex(0);
+        setItemInFocusIndex(newItemIndex);
         
         // need to update which inventory data is getting passed in here
         // do that by updating selectedCategory
