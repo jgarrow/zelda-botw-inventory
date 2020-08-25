@@ -5,7 +5,7 @@ import Image from "./image"
 const GridItem = styled.li`
     list-style: none;
     margin-bottom: 0;
-    background-color: black;
+    background-color: ${({ isEmpty }) => isEmpty ? `rgb(36 35 35 / 0.75)` : `black`};
     padding: 2.5px;
     position: relative;
     height: 80px;
@@ -16,7 +16,7 @@ const GridItem = styled.li`
 `
 
 const BorderSquare = styled.div`
-    background-color: black;
+    background-color: ${({ isEmpty }) => isEmpty ? `rgb(36 35 35 / 0.75)` : `black`};
     border: 1px solid #2f3124;
     height: 100%;
 `
@@ -48,7 +48,9 @@ const ItemValue = styled.p`
     line-height: 1;
 `
 
-const Item = ({ item, itemIndex, category, itemInFocusIndex, handleItemClick, handleArmorEquip }) => {
+const Item = ({ item, itemIndex, category, itemInFocusIndex, handleItemClick, handleArmorEquip, isEmpty }) => {
+    console.log('isEmpty: ', isEmpty)
+
     const handleClick = () => {
         if (category === "armor" || category === "helm" || category === "greaves") {
             handleArmorEquip(item)
@@ -58,12 +60,12 @@ const Item = ({ item, itemIndex, category, itemInFocusIndex, handleItemClick, ha
     }
 
     return (
-        <GridItem onClick={() => handleClick()} inFocus={itemInFocusIndex === itemIndex}>
-            <BorderSquare>
-                <ImgContainer>
+        <GridItem onClick={() => handleClick()} inFocus={itemInFocusIndex === itemIndex} isEmpty={isEmpty}>
+            <BorderSquare isEmpty={isEmpty}>
+                {item.icon && <ImgContainer>
                     <StyledImg filename={item.icon} altTag={item.name}/>
-                </ImgContainer>
-                {item.value.length && (
+                </ImgContainer>}
+                {item.value && (
                     <ValueBg>
                         <ItemValue>{item.value}</ItemValue>
                     </ValueBg>

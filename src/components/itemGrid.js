@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
+import { motion } from "framer-motion"
 
 import { fillGrid } from "../utils/fillGrid"
 
@@ -73,59 +74,96 @@ const ItemGrid = ({
         pos, // used for calculating categoryPosition for BottomBorder
         items, // will be weapons OR shields OR armor, depending on what selectedCategory is
     },
+    inventory,
+    inventoryCategories,
     selectedCategory,
+    setSelectedCategory,
     itemInFocusIndex,
     setItemInFocusIndex,
     handleItemClick, 
     handleArmorEquip, 
     handleArmorRemove 
 }) => {
+    console.log('pos: ', pos)
     const numOfColumns = 5; // num of columns in itemGrid
     const numOfItems = 20; // total num of items per itemGrid
     // const [selectedCategory, setSelectedCategory] = useState("weapon")
     // const [categoryPosition, setCategoryPosition] = useState(`translateX(0)`);
+    const [gridDirection, setGridDirection] = useState(0)
     
     const changeCategory = (name) => {
+        console.log('hola')
         // setSelectedCategory(name)
+    }
+
+    const handleArrowClick = (direction) => {
+        console.log('ciao')
+
+        let moveDirection = gridDirection;
+        let newCategoryIndex = pos;
+
+        if (direction === "right") {
+            moveDirection = 100;
+            newCategoryIndex = (pos + 1) < (inventoryCategories.length) ? (pos + 1) : (inventoryCategories.length - 1);
+        } else if (direction === "left") {
+            moveDirection = -100;
+            newCategoryIndex = (pos - 1) >= 0 ? (pos - 1) : 0;
+        }
+
+        console.log('moveDirection: ', moveDirection)
+        console.log('newCategoryIndex: ', newCategoryIndex)
+
+        // tell motion.div to move left or right
+        setGridDirection(moveDirection);
+
+        // need to update itemInFocusIndex to 0
+        setItemInFocusIndex(0);
+        
+        // need to update which inventory data is getting passed in here
+        // do that by updating selectedCategory
+        setSelectedCategory(inventoryCategories[newCategoryIndex])
     }
 
     // for arrow navigation in itemGrid, need to use setItemInFocus to update the index of the item currently in focus
   const handleArrowNavigation = (e) => {
     let newIndex = itemInFocusIndex;
-    console.log('newIndex before update: ', newIndex);
+    let moveDirection = gridDirection;
+    let newCategoryIndex = pos;
 
     if (e.key === "ArrowRight") {
       // Right arrow ==> +1 to index
       //   condition -- if at right edge, go to next grid (trigger "click" on right arrow icon) unless in last grid
-
-      console.log('right arrow clicked');
       
       // check if we're on the last column on the right
       if ((itemInFocusIndex + 1) % numOfColumns === 0) {
         // if so, go to the next itemGrid to the right
-        // add handling to see if we're on the last grid
-        
-        // update the index so it's on the same row, but the first column
-        newIndex = itemInFocusIndex - (numOfColumns - 1)
+        // only move to the right if we're NOT on the last grid
+        if (pos < (inventoryCategories.length - 1)) {
+            moveDirection = 100;
+            newCategoryIndex = (pos + 1) < (inventoryCategories.length) ? (pos + 1) : (inventoryCategories.length - 1);
+            
+            // update the index so it's on the same row, but the first column
+            newIndex = itemInFocusIndex - (numOfColumns - 1)
+        }
       } else {
         // otherwise increment the current index by 1
         ++newIndex;
       }
-
-      // setItemInFocusIndex(newIndex)
     } else if (e.key === "ArrowLeft") {
       //   Left arrow ==> -1 to index
       //   condition -- if at left edge, go to next grid (trigger "click" on left arrow icon) unless in first grid
 
-      console.log('left arrow clicked');
-
       // check if we're on the first column on the left
       if (itemInFocusIndex % numOfColumns === 0) {
         // if so, go to the previous itemGrid to the left
-        // add handling to see if we're on the first grid
-        
-        // update the index so it's on the same row, but the last column
-        newIndex = itemInFocusIndex + (numOfColumns - 1)
+        // only move to the left if we're NOT on the first grid
+        if (pos > 0) {
+            moveDirection = -100;
+            newCategoryIndex = (pos - 1) >= 0 ? (pos - 1) : 0;
+
+            // update the index so it's on the same row, but the last column
+            newIndex = itemInFocusIndex + (numOfColumns - 1)
+        }
       } else {
         // otherwise decrement the current index by 1
         --newIndex;
@@ -147,24 +185,30 @@ const ItemGrid = ({
     }
     
     console.log('newIndex after update: ', newIndex);
-    setItemInFocusIndex(newIndex)
+    setItemInFocusIndex(newIndex);
+
+    // tell motion.div to move left or right
+    setGridDirection(moveDirection);
+
+    // need to update which inventory data is getting passed in here
+    // do that by updating selectedCategory
+    setSelectedCategory(inventoryCategories[newCategoryIndex])
   }
 
     // for motion.div for Grid
-    // const variants = {
+    const variants = {
     // where x is -100 or 100 for the direction the Grid should move
-    //     start: (x) => ({
-    //         x,
-    //         opacity: 0
-    //     }),
-    //     end: {
-    //         x: 0,
-    //         opacity: 1
-    //     }
-    // }
+        start: (x) => ({
+            x,
+            opacity: 0
+        }),
+        end: {
+            x: 0,
+            opacity: 1
+        }
+    }
 
     useEffect(() => {
-        console.log('i got here')
         document.addEventListener('keydown', handleArrowNavigation);
 
         return () => document.removeEventListener('keydown', handleArrowNavigation)
@@ -200,13 +244,14 @@ const ItemGrid = ({
 
             {/* will add framer motion slide functionality */}
             <Carousel>
-            <Arrow isLeftArrow={true}>
+            <Arrow isLeftArrow={true} onClick={() => handleArrowClick("left")}>
                 <img src={arrow} alt="Left arrow to navigate to previous inventory page"/>
             </Arrow>
             
             {/* wrap in a motion.div */}
-            {/* <motion.div
-                custom={100 going to the right, -100 going to the left}
+            <motion.div
+                // custom={100 going to the right, -100 going to the left}
+                custom={gridDirection}
                 variants={variants}
                 initial="start"
                 animate="end"
@@ -214,7 +259,7 @@ const ItemGrid = ({
                     x: { type: "tween" },
                     opacity: { duration: 0.2 },
                 }}
-            > */}
+            >
             <Grid>
                 {/* fillGrid(items, selectedCategory) */}
                 {fillGrid(items).map((item, index) => (
@@ -223,23 +268,24 @@ const ItemGrid = ({
                         item={item} 
                         itemIndex={index} 
                         itemInFocusIndex={itemInFocusIndex} handleItemClick={handleItemClick}
+                        isEmpty={item.name ? false : true}
                     />
                 ))}
             </Grid>
-            {/* </motion.div> */}
+            </motion.div>
 
             {/* <Grid>
-                {fillGrid(shields, "shield").map((item, index) => (
+                {fillGrid(shields).map((item, index) => (
                     <Item key={`${item.name}-${index}`} item={item} handleItemClick={handleItemClick}/>
                 ))}
             </Grid>
             <Grid>
-                {fillGrid(armor, "armor").map((item, index) => (
+                {fillGrid(armor).map((item, index) => (
                     <Item key={`${item.name}-${index}`} item={item} category="armor" handleItemClick={handleItemClick} handleArmorEquip={handleArmorEquip} tabIndex={`${index}`}/>
                 ))}
             </Grid> */}
             
-            <Arrow>
+            <Arrow onClick={() => handleArrowClick("right")}>
             <img src={arrow} alt="Right arrow to navigate to next inventory page"/>
             </Arrow>
             </Carousel>

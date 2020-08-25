@@ -40,16 +40,18 @@ const IndexPage = ({ data }) => {
     weapons: { pos: 0, items: data.allWeaponsJson.edges.map(n => n.node)},
     shields: {pos: 1, items: data.allShieldsJson.edges.map(n => n.node)},
     armor: {pos: 2, items: data.allArmorJson.edges.map(n => n.node)},
-  }
+  };
   // const weapons = data.allWeaponsJson.edges.map(n => n.node);
   // const shields = data.allShieldsJson.edges.map(n => n.node);
   // const armor = data.allArmorJson.edges.map(n => n.node);
+
+  const inventoryCategories = Object.keys(inventory);
 
   // get rid of this, instead look at equipped state before updating to equip new item
   // const [prevItemInFocus, setPrevItemInFocus] = useState(null);
 
   // Bring in selectedCategory (move from itemGrid) to change between "weapons", "shields", and "armor"
-  const [selectedCategory, setSelectedCategory] = useState("weapons")
+  const [selectedCategory, setSelectedCategory] = useState(inventoryCategories[0])
 
   // change to just be index of the item instead of whole object
   const [itemInFocusIndex, setItemInFocusIndex] = useState(0);
@@ -128,7 +130,10 @@ const IndexPage = ({ data }) => {
           // shields={inventory.shields} 
           // armor={inventory.armor} 
           data={inventory[selectedCategory]}
+          inventory={inventory}
+          inventoryCategories={inventoryCategories}
           selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
           itemInFocusIndex={itemInFocusIndex}
           setItemInFocusIndex={setItemInFocusIndex}
           handleItemClick={handleItemClick}

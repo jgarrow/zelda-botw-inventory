@@ -1,9 +1,9 @@
 export const fillGrid = (dataArray, itemsPerPage = 20) => {
     const emptyItem = {
-        name: "",
-        icon: "",
-        value: "",
-        description: "",
+        name: null,
+        icon: null,
+        value: null,
+        description: null
         // category: categoryName // can probably remove this
     };
 
